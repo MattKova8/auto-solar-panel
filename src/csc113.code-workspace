@@ -1,0 +1,56 @@
+{
+	"folders": [
+		{
+			"path": "../../hellowrld"
+		},
+		{
+			"name": "SerialExp",
+			"path": "../../SerialExp"
+		},
+		{
+			"name": "morseCode",
+			"path": "../../morseCode"
+		},
+		{
+			"name": "FlashExperiment",
+			"path": "../../FlashExperiment"
+		},
+		{
+			"name": "EEPROMExperiment",
+			"path": "../../EEPROMExperiment"
+		},
+		{
+			"name": "MemoryExperiment",
+			"path": "../../MemoryExperiment"
+		},
+		{
+			"name": "LEDExperiment",
+			"path": "../../LEDExperiment"
+		},
+		{
+			"name": "buttonExperiment",
+			"path": "../../buttonExperiment"
+		},
+		{
+			"name": "buttonExp2",
+			"path": "../../buttonExp2"
+		},
+		{
+			"name": "analogExperiment",
+			"path": "../../analogExperiment"
+		},
+		{
+			"name": "ServoExperiment",
+			"path": "../../ServoExperiment"
+		},
+		{
+			"name": "Project1",
+			"path": ".."
+		},
+		{
+			"name": "StateMachineExperiment",
+			"path": "../../StateMachineExperiment"
+		}
+	],
+	"settings": {}
+}
