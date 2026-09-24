@@ -13,6 +13,11 @@ int val; //photoresistor reading (high val so that any read val is lower)
 // pushbutton setup
 #define button 7
 
+// RGB LED setup
+#define RED_PIN 9
+#define GREEN_PIN 10
+#define BLUE_PIN 11
+
 // scanning vars
 int scan_delay = 10; //adjustable scan delay (ms)
 int strongest = 1023; // strongest light position on scan
@@ -27,6 +32,12 @@ TODO: LED indicator in scan function
 */
 void scan (){
   Serial.println("Starting scan...");
+  
+  // led red
+  digitalWrite(RED_PIN, 255);
+  digitalWrite(BLUE_PIN, 0);
+  digitalWrite(GREEN_PIN, 0);
+
   servo.write(0);
 
   for (int pos = 0; pos <= 180; pos++){
@@ -55,6 +66,11 @@ void scan (){
   // move servo to strongest light source
   servo.write(strongest_deg);
   delay(scan_delay);
+
+  // led green
+  digitalWrite(RED_PIN, 0);
+  digitalWrite(BLUE_PIN, 0);
+  digitalWrite(GREEN_PIN, 255);
 }
 
 void setup() {
@@ -62,9 +78,16 @@ void setup() {
 
   //initialize components
   Serial.begin(9600);
+
   pinMode(PHOTO_PIN, INPUT);
+
   servo.attach(SERVO_PIN);
   servo.write(0);
+
+  pinMode(RED_PIN, OUTPUT);
+  pinMode(GREEN_PIN, OUTPUT);
+  pinMode(BLUE_PIN, OUTPUT);
+
   delay(300);
 
   scan(); // initial scan on boot
@@ -79,6 +102,18 @@ void loop() {
 
       if (seconds > 0) {
           scan_period = (unsigned long)seconds * 1000;
+
+          // flash blue for set interval
+          for (int i=0; i < 4; i++){
+            digitalWrite(RED_PIN, 0);
+            digitalWrite(BLUE_PIN, 255);
+            digitalWrite(GREEN_PIN, 0);
+            delay(20);
+            digitalWrite(RED_PIN, 0);
+            digitalWrite(BLUE_PIN, 255);
+            digitalWrite(GREEN_PIN, 0);
+            delay(20);
+          }
 
           Serial.print("Interval set to ");
           Serial.print(seconds);
