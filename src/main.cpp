@@ -14,8 +14,8 @@ int val; //photoresistor reading (high val so that any read val is lower)
 #define BUTTON 2
 
 // RGB LED setup
-#define BLUE_PIN 8
-#define RED_PIN 9
+#define BLUE_PIN 9
+#define RED_PIN 11
 #define GREEN_PIN 10
 
 // scanning vars
@@ -25,7 +25,7 @@ int strongest_deg; //servo position of strongest photo val
 
 // timer vars
 unsigned long previousMillis = 0;
-unsigned long scan_period = 30000; // default 30 sec auto scan
+unsigned long scan_period = 60000; // default 60 sec auto scan
 
 void scan (){
   Serial.println("Starting scan...");
@@ -102,7 +102,7 @@ void loop() {
           scan_period = (unsigned long)seconds * 1000;
 
           // flash blue for set interval
-          for (int i=0; i < 6; i++){
+          for (int i=0; i < 4; i++){
             digitalWrite(RED_PIN, 0);
             digitalWrite(BLUE_PIN, 255);
             digitalWrite(GREEN_PIN, 0);
@@ -112,6 +112,7 @@ void loop() {
             digitalWrite(GREEN_PIN, 0);
             delay(100);
           }
+          digitalWrite(GREEN_PIN, 255);
 
           Serial.print("Interval set to ");
           Serial.print(seconds);
