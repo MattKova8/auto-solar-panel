@@ -11,12 +11,12 @@ int servo_pos = 0;
 int val; //photoresistor reading (high val so that any read val is lower)
 
 // pushbutton setup
-#define button 7
+#define BUTTON 2
 
 // RGB LED setup
+#define BLUE_PIN 8
 #define RED_PIN 9
 #define GREEN_PIN 10
-#define BLUE_PIN 11
 
 // scanning vars
 int scan_delay = 10; //adjustable scan delay (ms)
@@ -27,9 +27,6 @@ int strongest_deg; //servo position of strongest photo val
 unsigned long previousMillis = 0;
 unsigned long scan_period = 30000; // default 30 sec auto scan
 
-/*
-TODO: LED indicator in scan function
-*/
 void scan (){
   Serial.println("Starting scan...");
   
@@ -80,6 +77,7 @@ void setup() {
   Serial.begin(9600);
 
   pinMode(PHOTO_PIN, INPUT);
+  pinMode(BUTTON, INPUT_PULLUP);
 
   servo.attach(SERVO_PIN);
   servo.write(0);
@@ -104,21 +102,26 @@ void loop() {
           scan_period = (unsigned long)seconds * 1000;
 
           // flash blue for set interval
-          for (int i=0; i < 4; i++){
+          for (int i=0; i < 6; i++){
             digitalWrite(RED_PIN, 0);
             digitalWrite(BLUE_PIN, 255);
             digitalWrite(GREEN_PIN, 0);
-            delay(20);
+            delay(100);
             digitalWrite(RED_PIN, 0);
-            digitalWrite(BLUE_PIN, 255);
+            digitalWrite(BLUE_PIN, 0);
             digitalWrite(GREEN_PIN, 0);
-            delay(20);
+            delay(100);
           }
 
           Serial.print("Interval set to ");
           Serial.print(seconds);
           Serial.println(" seconds.");
       }
+  }
+
+  // manual scan on button press
+  if (digitalRead(BUTTON) == LOW){
+    scan();
   }
 
   //auto scan
@@ -130,6 +133,10 @@ void loop() {
         scan();
     }
 
-  // check for button press to scan
-  //output to serial
+  
+  /*TODO:
+    output to serial
+    check requirement for autoscan
+    (only scan on light level change)
+  */
 }
