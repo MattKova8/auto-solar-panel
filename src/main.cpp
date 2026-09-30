@@ -122,6 +122,7 @@ void loop() {
 
   // manual scan on button press
   if (digitalRead(BUTTON) == LOW){
+    Serial.println("Starting manual scan...");
     scan();
   }
 
@@ -133,11 +134,4 @@ void loop() {
         Serial.println("Autoscan activated...");
         scan();
     }
-
-  
-  /*TODO:
-    output to serial
-    check requirement for autoscan
-    (only scan on light level change)
-  */
 }
